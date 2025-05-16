@@ -2,30 +2,23 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-class RouteServiceProvider extends ServiceProvider
+class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Diretório padrão para redirecionamentos.
+     * Register any application services.
      */
-    public const HOME = '/home';
+    public function register(): void
+    {
+        //
+    }
 
     /**
-     * Aqui o Laravel define quais arquivos de rotas usar.
+     * Bootstrap any application services.
      */
     public function boot(): void
     {
-        $this->routes(function () {
-            // Rotas da API com prefixo /api
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
-
-            // Rotas web normais
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
-        });
+        //
     }
 }

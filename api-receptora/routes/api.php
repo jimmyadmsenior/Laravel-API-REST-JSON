@@ -1,16 +1,23 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Models\Paciente;
 use Illuminate\Support\Facades\Log;
 
 Route::post('/receber-dados', function (Request $request) {
-    // Log dos dados recebidos (aparece em storage/logs/laravel.log)
-    Log::info('Recebido da API externa:', $request->all());
+    $dados = $request->input('pacientes');
 
-    // Ou apenas mostrar no navegador
+    foreach ($dados as $item) {
+        Paciente::create([
+            'nome' => $item['nome'] ?? $item['nome_completo'] ?? '',
+            'cpf' => $item['cpf'] ?? $item['documento'] ?? '',
+            'email' => $item['email'] ?? $item['contato'] ?? '',
+            'idade' => $item['idade'] ?? 0,
+        ]);
+    }
+
     return response()->json([
         'status' => 'sucesso',
-        'mensagem' => 'Dados recebidos com sucesso!',
-        'dados_recebidos' => $request->all()
+        'mensagem' => 'Pacientes salvos no banco SQLite!',
     ]);
 });

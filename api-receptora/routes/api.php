@@ -21,3 +21,7 @@ Route::post('/receber-dados', function (Request $request) {
         'mensagem' => 'Pacientes salvos no banco SQLite!',
     ]);
 });
+
+Route::get('/pacientes', function () {
+    return App\Models\Paciente::all();
+});
